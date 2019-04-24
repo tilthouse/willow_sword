@@ -14,13 +14,13 @@ WillowSword.setup do |config|
   # Default visibility for works
   config.default_visibility = 'open'
   # XML crosswalk for creating a work
-  config.xw_from_xml_for_work = WillowSword::CrosswalkFromMets
+  config.xw_from_xml_for_work = WillowSword::CrosswalkFromDc
   # XML crosswalk for creating a fileset
-  config.xw_from_xml_for_fileset = WillowSword::CrosswalkFromOra
+  config.xw_from_xml_for_fileset = WillowSword::CrosswalkFromDc
   # XML crosswalk when requesting a work
-  config.xw_to_xml_for_work = WillowSword::CrosswalkToMets
+  config.xw_to_xml_for_work = WillowSword::CrosswalkWorkToDc
   # XML crosswalk when requesting a fileet
-  config.xw_to_xml_for_fileset = WillowSword::CrosswalkToOra
+  config.xw_to_xml_for_fileset = WillowSword::CrosswalkFilesetToDc
   # Authorize Sword requests using Api-key header
   config.authorize_request = false
 end
