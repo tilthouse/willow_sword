@@ -46,12 +46,11 @@ module WillowSword
 
     def bag_request
       # The data is processed as a bag
-      # metadata.xml is the metadata file
       contents_path = File.join(@dir, 'contents')
       bag_path = File.join(@dir, 'bag')
       # validate or create bag
       bag = WillowSword::BagPackage.new(contents_path, bag_path)
-      @metadata_file = File.join(bag.package.data_dir, 'metadata.xml')
+      @metadata_file = File.join(bag.package.data_dir, WillowSword.config.metadata_filename)
       @files = bag.package.bag_files - [@metadata_file]
     end
 

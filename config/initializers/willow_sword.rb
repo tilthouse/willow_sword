@@ -13,6 +13,8 @@ WillowSword.setup do |config|
   config.allow_only_permitted_attributes = true
   # Default visibility for works
   config.default_visibility = 'open'
+  # Metadata filename in payload
+  config.metadata_filename = 'metadata.xml'
   # XML crosswalk for creating a work
   config.xw_from_xml_for_work = WillowSword::CrosswalkFromDc
   # XML crosswalk for creating a fileset
