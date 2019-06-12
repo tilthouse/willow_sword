@@ -2,8 +2,9 @@ module WillowSword
   class CrosswalkFilesetToDc < CrosswalkToXml
     attr_reader :file_set, :doc
 
-    def initialize(file_set)
+    def initialize(file_set, params=nil)
       @file_set = file_set
+      @params = params
       @doc = nil
     end
 
@@ -22,17 +23,16 @@ module WillowSword
       >
       <id>#{@file_set.id}</id>
       <title>#{@file_set.title.first}</title>
-      <updated>#{@file_set.date_modified}</updated>"
+      <updated>#{@file_set.date_modified}</updated>
+      </feed>"
       @doc = LibXML::XML::Document.string(atom)
     end
 
     def add_links
       # content url
-      content_url = collection_work_file_set_url(params[:collection_id], params[:work_id], @file_set)
-      @doc.root << content_node(content_url)
+      @doc.root << content_node(@params[@file_set.id][:content])
       # edit url
-      edit_url = collection_work_file_set_url(params[:collection_id], params[:work_id], @file_set)
-      @doc.root << link_node(edit_url)
+      @doc.root << link_node(@params[@file_set.id][:edit])
     end
 
     def add_dc

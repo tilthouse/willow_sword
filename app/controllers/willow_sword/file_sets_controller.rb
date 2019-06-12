@@ -11,8 +11,9 @@ module WillowSword
     def show
       @file_set = find_file_set
       render_file_set_not_found and return unless @file_set
+      urls = get_urls
       xw_klass = WillowSword.config.xw_to_xml_for_fileset
-      xw = xw_klass.new(@file_set)
+      xw = xw_klass.new(@file_set, urls)
       xw.to_xml
       @xml_data = xw.doc.to_s
       render 'show.xml', formats: [:xml], status: 200
@@ -84,6 +85,13 @@ module WillowSword
         message = "Server cannot find work with id #{params[:work_id]}"
         @error = WillowSword::Error.new(message, :not_found)
         render '/willow_sword/shared/error.xml.builder', formats: [:xml], status: @error.code
+      end
+
+      def get_urls
+        urls = {}
+        url = collection_work_file_set_url(params[:collection_id], params[:work_id], @file_set)
+        urls[@file_set.id] = { content: url, edit: url }
+        urls
       end
 
   end
