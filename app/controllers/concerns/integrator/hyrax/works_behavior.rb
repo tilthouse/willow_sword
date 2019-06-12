@@ -20,7 +20,7 @@ module Integrator
           u.user_id = @current_user.id unless @current_user.nil?
           u.file = ::CarrierWave::SanitizedFile.new(file)
           u.save
-          chosen_file = @files_attributes.select{ |fa| File.basename(fa['filepath'][0]) == File.basename(file) }
+          chosen_file = @files_attributes.select{ |fa| File.basename(fa['filepath']) == File.basename(file) }
           if chosen_file.any?
             chosen_file[0]['uploaded_file'] = u
             @uploaded_files[File.basename(file)] = chosen_file[0]
@@ -163,8 +163,8 @@ module Integrator
           end
           title = Array(file_attributes.dig('mapped_metadata', 'file_name'))
           unless title.any?
-            filepath = Array(file_attributes.fetch('filepath', nil))
-            title = Array(File.basename(filepath[0])) if filepath.any?
+            filepath = file_attributes.fetch('filepath', nil)
+            title = [File.basename(filepath)] unless filepath.blank?
           end
           actor.file_set.title = title
           # update_metadata
