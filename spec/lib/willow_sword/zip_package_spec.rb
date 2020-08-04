@@ -25,7 +25,6 @@ RSpec.describe WillowSword::ZipPackage do
       zp = WillowSword::ZipPackage.new(@src, dst)
       zp.create_zip
       expect(File.exist?(dst)).to be true
-      FileUtils.cp(dst, '/tmp/test1.zip')
       expect(test_zip(@zip_src, dst)).to be_truthy
     end
   end
