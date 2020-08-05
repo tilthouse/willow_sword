@@ -30,7 +30,7 @@ The plugin has a few configuration options. To view the current default options 
 If you would like to authorize all Sword requests using an Api-key header, see [Enabling authorization](https://github.com/CottageLabs/willow_sword/wiki/Enabling-Authorization-In-Willow-Sword)
 
 ## Usage
-To use the plugin see [usage](https://github.com/CottageLabs/willow_sword/wiki/Usage)
+To use the plugin see [usage](https://github.com/CottageLabs/willow_sword/wiki/Usage).
 
 ## Contributing
 Contribution directions go here.
