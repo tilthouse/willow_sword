@@ -58,5 +58,5 @@ def get_md5(zip_file)
     end
   }
 
-  md5
+  md5.sort!
 end
