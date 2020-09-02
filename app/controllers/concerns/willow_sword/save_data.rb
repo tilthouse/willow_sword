@@ -62,7 +62,7 @@ module WillowSword
       else
         if data.kind_of? ActionDispatch::Http::UploadedFile
           if is_metadata
-            new_file_name = 'metadata.xml'
+            new_file_name = WillowSword.config.metadata_filename
           else
             new_file_name = data.original_filename
           end
@@ -71,7 +71,7 @@ module WillowSword
           FileUtils.move tmp.path, path
         else
           if is_metadata
-            new_file_name = 'metadata.xml'
+            new_file_name = WillowSword.config.metadata_filename
           end
           new_file_name = new_file_name || SecureRandom.uuid
           path = File.join(@dir, new_file_name)

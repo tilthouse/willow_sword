@@ -1,9 +1,14 @@
 module WillowSword
-  class DcCrosswalk
-    attr_reader :metadata, :model, :terms, :translated_terms, :singular
-    def initialize(src_file)
+  class CrosswalkFromDc
+    attr_reader :dc, :metadata, :model, :mapped_metadata, :files_metadata, :terms, :translated_terms, :singular
+    def initialize(src_file, headers)
       @src_file = src_file
+      @headers = headers
+      @dc = nil
+      @model = nil
       @metadata = {}
+      @mapped_metadata = {}
+      @files_metadata = []
     end
 
     def terms
@@ -32,6 +37,12 @@ module WillowSword
     end
 
     def map_xml
+      parse_dc
+      @mapped_metadata = @mapped_metadata
+      assign_model if @metadata.any?
+    end
+
+    def parse_dc
       return @metadata unless @src_file.present?
       return @metadata unless File.exist? @src_file
       f = File.open(@src_file)
@@ -48,11 +59,9 @@ module WillowSword
         @metadata[key.to_sym] = values unless values.blank?
       end
       f.close
-      assign_model
     end
 
     def assign_model
-      @model = nil
       unless @metadata.fetch(:resource_type, nil).blank?
         @model = Array(@metadata[:resource_type]).map {
           |t| t.underscore.gsub('_', ' ').gsub('-', ' ').downcase
