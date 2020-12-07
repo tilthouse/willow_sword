@@ -120,6 +120,8 @@ module Integrator
         # Override if we need to map the attributes from the parser in
         # a way that is compatible with how the factory needs them.
         def transform_attributes
+          WillowSword.config.before_work_transform_attributes.call(params, @attributes) if WillowSword.config.before_work_transform_attributes
+
           # TODO: attributes are strings and not symbols
           @attributes['visibility'] = WillowSword.config.default_visibility if @attributes.fetch('visibility', nil).blank?
           if WillowSword.config.allow_only_permitted_attributes
@@ -134,7 +136,7 @@ module Integrator
         end
 
         def permitted_attributes
-          @work_klass.properties.keys.map(&:to_sym) + [:id, :edit_users, :edit_groups, :read_groups, :visibility]
+          @work_klass.properties.keys.map(&:to_sym) + [:id, :edit_users, :edit_groups, :read_groups, :visibility, :admin_set_id]
         end
 
         def find_work_klass(work_id)

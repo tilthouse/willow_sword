@@ -25,4 +25,9 @@ WillowSword.setup do |config|
   config.xw_to_xml_for_fileset = WillowSword::CrosswalkFilesetToDc
   # Authorize Sword requests using Api-key header
   config.authorize_request = false
+  # Customize attribute transformation, e.g.:
+  # config.before_work_transform_attributes = lambda { |params, attributes|
+  #   attributes[:admin_set_id] = params[:admin_set_id] if params[:admin_set_id].present?
+  # }
+  config.before_work_transform_attributes = nil
 end
